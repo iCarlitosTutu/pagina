@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Valentina 💘</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+
+body{
+    background:black;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* INTRO */
+.intro{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:10;
+    animation:fadeOut 3s 4s forwards;
+}
+
+.intro h1{
+    color:#ff4da6;
+    font-size:40px;
+    animation:fadeIn 2s forwards;
+}
+
+.intro p{
+    color:#ccc;
+    animation:fadeIn 2s 1s forwards;
+}
+
+@keyframes fadeOut{
+    to{opacity:0;visibility:hidden;}
+}
+
+@keyframes fadeIn{
+    from{opacity:0;}to{opacity:1;}
+}
+
+/* HERO */
+.hero{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:50px;
+    color:#ff4da6;
+}
+
+.type{
+    margin-top:20px;
+    max-width:600px;
+    color:#ccc;
+}
+
+/* FOTO */
+.foto{
+    display:flex;
+    justify-content:center;
+    margin:60px;
+}
+
+.foto img{
+    width:80%;
+    border-radius:20px;
+    box-shadow:0 0 40px #ff4da6;
+}
+
+/* RAZONES */
+.section{
+    max-width:800px;
+    margin:auto;
+    padding:20px;
+}
+
+.razon{
+    margin:25px 0;
+    padding:20px;
+    border-left:3px solid #ff4da6;
+    opacity:0;
+    transform:translateY(50px);
+    transition:0.8s;
+}
+
+.razon.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* CARTA FINAL */
+.carta{
+    max-width:700px;
+    margin:100px auto;
+    padding:30px;
+    border:1px solid #ff4da6;
+    border-radius:15px;
+    background:rgba(255,255,255,0.05);
+    font-size:18px;
+    line-height:1.6;
+}
+
+.final{
+    text-align:center;
+    margin-top:40px;
+    font-size:22px;
+    color:#ff4da6;
+}
+
+/* CORAZONES */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    color:#ff4da6;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    to{transform:translateY(-100vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div class="intro">
+    <h1>Para Valentina 💘</h1>
+    <p>Esto es lo último que tengo para decirte…</p>
+</div>
+
+<!-- MUSICA (CAMBIA EL LINK) -->
+<audio id="musica">
+    <source src="🔥 COBRONA  CARABIN3 ( VIDEO OFICIAL )  Prod SVNTI - Los Money Makers - CARABIN3 Oficial.mp3" type="audio/mpeg">
+</audio>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>Valentina</h1>
+    <div class="type" id="texto"></div>
+</div>
+
+<!-- FOTO -->
+<div class="foto">
+    <img src="foto.jpeg">
+</div>
+
+<!-- RAZONES -->
+<div class="section" id="contenedor"></div>
+
+<!-- CARTA FINAL -->
+<div class="carta" id="carta"></div>
+
+<div class="final">
+    Con todo lo que soy… lo intentaría contigo otra vez 💘
+</div>
+
+<script>
+
+/* CONTROLAR MUSICA (60s) */
+let audio = document.getElementById("musica");
+
+document.body.addEventListener("click", () => {
+    audio.play();
+}, { once: true });
+
+setTimeout(()=>{
+    audio.pause();
+},60000);
+
+/* TEXTO INICIAL */
+let msg = "No fue perfecto… pero fue real. Y perder algo así… no es fácil.";
+let i=0;
+
+function escribir(){
+    if(i<msg.length){
+        document.getElementById("texto").innerHTML+=msg.charAt(i);
+        i++;
+        setTimeout(escribir,40);
+    }
+}
+escribir();
+
+/* RAZONES */
+let razones = [
+"Eres diferente a todas",
+"Tu mirada tiene algo especial",
+"Eres demasiado especial",
+"Contigo todo se sentía real",
+"Eras paz",
+"Tu sonrisa vale todo",
+"Eres única",
+"Eres inolvidable",
+"Tu esencia es hermosa",
+"Tu forma de amar es real"
+];
+
+let cont = document.getElementById("contenedor");
+
+razones.forEach((r,i)=>{
+    let d=document.createElement("div");
+    d.classList.add("razon");
+    d.innerText=(i+1)+". "+r;
+    cont.appendChild(d);
+});
+
+let elems=document.querySelectorAll(".razon");
+
+function mostrar(){
+    let trigger=window.innerHeight*0.85;
+    elems.forEach(el=>{
+        let top=el.getBoundingClientRect().top;
+        if(top<trigger){
+            el.classList.add("visible");
+        }
+    });
+}
+window.addEventListener("scroll",mostrar);
+mostrar();
+
+/* CARTA FINAL (MAQUINA) */
+let carta = "Valentina...\n\nSé que fallé. Sé que te hice daño, y no hay excusa para eso.\n\nPero si algo tengo claro, es que lo que sentí contigo fue real.\n\nNo eras una más… eras tú.\n\nY eso… eso no se reemplaza.\n\nNo te escribo esto esperando que todo vuelva a ser como antes.\n\nSolo quería que supieras que, si algún día decides mirar atrás…\n\nAquí va a haber alguien que sí aprendió,\nque sí cambió,\ny que sí lo intentaría de verdad.\n\nContigo.\n\n💘";
+
+let j=0;
+
+function escribirCarta(){
+    if(j<carta.length){
+        document.getElementById("carta").innerHTML+=carta.charAt(j).replace(/\n/g,"<br>");
+        j++;
+        setTimeout(escribirCarta,35);
+    }
+}
+
+setTimeout(escribirCarta,4000);
+
+/* CORAZONES */
+setInterval(()=>{
+    let h=document.createElement("div");
+    h.classList.add("heart");
+    h.innerText="💘";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+},500);
+
+</script>
+
+</body>
+</html>
